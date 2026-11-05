@@ -15,8 +15,6 @@ A notebook-based machine learning project that explores an autism screening data
 - [Project Workflow](#project-workflow)
 - [Technologies and Libraries](#technologies-and-libraries)
 - [Installation and Setup](#installation-and-setup)
-- [Project Structure](#project-structure)
-- [Future Improvements](#future-improvements)
 
 ## Project Overview
 
@@ -61,7 +59,7 @@ The notebook applies these steps:
 7. Splits the data with `test_size=0.2` and `random_state=42` (80% train / 20% test). No `stratify` argument is used.
 8. Applies SMOTE with `random_state=42` to the training split only. The saved resampled training output contains **515 rows per class** (1,030 total).
 
-The notebook does not perform a duplicate check, feature scaling, or additional feature engineering. The label encoders and IQR replacement bounds are fitted before the train/test split. SMOTE is also applied before cross-validation. These choices can introduce information leakage into model-selection scores; see [Future Improvements](#future-improvements).
+The notebook does not perform a duplicate check, feature scaling, or additional feature engineering. The label encoders and IQR replacement bounds are fitted before the train/test split. SMOTE is also applied before cross-validation. These choices can introduce information leakage into model-selection scores; 
 
 ## Model Development
 
@@ -71,7 +69,7 @@ Three classifiers are evaluated:
 - **Random Forest (`RandomForestClassifier`)** — ensemble of decision trees.
 - **XGBoost (`XGBClassifier`)** — gradient-boosted tree model.
 
-For the initial comparison, the notebook runs five-fold cross-validation with accuracy scoring on the SMOTE-resampled training data. It then runs a separate `RandomizedSearchCV` for each model with 10 sampled parameter combinations, five folds, accuracy scoring, and `random_state=42`. The selected estimator is saved as `best_model.pkl`; the encoders are saved as `encoders.pkl`.
+For the initial comparison, the notebook runs five-fold cross-validation with accuracy scoring on the SMOTE-resampled training data. It then runs a separate `RandomizedSearchCV` for each model with 10 sampled parameter combinations, five folds, accuracy scoring, and `random_state=42`. 
 
 ## Model Evaluation
 
@@ -133,8 +131,6 @@ flowchart LR
     F --> G[5-fold CV and randomized tuning]
     G --> H[Select best CV estimator]
     H --> I[Evaluate selected model on holdout test set]
-    H --> J[Save best_model.pkl]
-    C --> K[Save encoders.pkl]
 ```
 
 ## Technologies and Libraries
@@ -212,5 +208,4 @@ Confirm redistribution rights before committing the dataset to a public reposito
 jupyter notebook Autism_Prediction.ipynb
 ```
 
-Run the cells from top to bottom. The notebook writes `encoders.pkl` and `best_model.pkl` to the current working directory when the relevant cells execute.
-
+Run the cells from top to bottom. 
