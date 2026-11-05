@@ -214,32 +214,3 @@ jupyter notebook Autism_Prediction.ipynb
 
 Run the cells from top to bottom. The notebook writes `encoders.pkl` and `best_model.pkl` to the current working directory when the relevant cells execute.
 
-## Project Structure
-
-The current workspace contains the notebook. The following is a suggested repository layout that reflects its inputs and generated artifacts:
-
-```text
-.
-├── Autism_Prediction.ipynb
-├── README.md
-├── requirements.txt        # recommended from notebook imports
-├── data/
-│   └── train.csv           # provide separately; not currently included
-└── artifacts/              # optional destination for generated pickle files
-    ├── best_model.pkl
-    └── encoders.pkl
-```
-
-The notebook currently writes pickle files to the working directory; move or configure those outputs if adopting the optional `artifacts/` folder. Do not commit sensitive data or model artifacts without reviewing their contents and intended sharing scope.
-
-## Future Improvements
-
-1. **Prevent data leakage:** Split first, then fit imputers/encoders and outlier thresholds on training folds. Use an `imblearn` pipeline so SMOTE is applied inside each cross-validation training fold.
-2. **Stratify the split:** Add `stratify=y` to preserve the target ratio in train and test sets.
-3. **Compare every model on the same holdout set:** Generate holdout predictions for each tuned classifier and compare class-specific precision, recall, F1, confusion matrices, and optionally ROC-AUC or PR-AUC.
-4. **Review outlier and category decisions:** Verify whether negative `result` scores are valid and assess whether median replacement and combining relation/country labels are appropriate.
-5. **Improve categorical handling:** Consider one-hot encoding for nominal categories, especially if expanding beyond tree-based models.
-6. **Add data checks:** Report duplicate rows, verify category domains, and document the target and feature definitions.
-7. **Make the workflow reproducible:** Record Python and package versions, use a relative configurable dataset path, and save evaluation summaries and preprocessing/model artifacts in a documented location.
-8. **Assess generalization responsibly:** Validate on an independently sourced dataset and document population, collection context, and limitations before making claims beyond this sample.
-
